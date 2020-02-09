@@ -70,8 +70,8 @@ jobs:
       run: |
         echo -e "$(nproc) thread build."
         cd lede && make download -j$(nproc)
-#        find dl -size -1024c -exec ls -l {} \;
-#        find dl -size -1024c -exec rm -f {} \;
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
 
     - name: Build
       run: |
