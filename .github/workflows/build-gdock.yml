@@ -57,7 +57,7 @@ jobs:
     - name: ZIP
       uses: montudor/action-zip@v0.1.0
       with:
-        args: zip -qq -r ./lede.zip ./lede
+        args: zip -qq -r ./lede.zip ./lede/README
     
     - name: Upload to release
       uses: xresloader/upload-to-github-release@v1
