@@ -52,13 +52,7 @@ jobs:
       run: |
         git clone https://github.com/coolsnowwolf/lede lede
 
-    - name: Load custom configuration
-      run: |
-        cp -f gdockfull128.config ./lede/.config
-        chmod +x diy.sh
-        cd lede
-        ../diy.sh
-        make defconfig
+
 
     - name: ZIP
       uses: montudor/action-zip@v0.1.0
