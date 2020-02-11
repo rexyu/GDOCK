@@ -73,12 +73,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Build
-      run: |
-        cd lede
-        echo -e "$(nproc) thread build."
-        make -j8 V=s
-
+    
 
 
     - name : Upload artifact
@@ -87,3 +82,15 @@ jobs:
         name: G-DOCK
         path: ./lede/bin
 
+    - name: ZIP
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -qq -r ./lede.zip ./lede
+    
+    - name: Upload to release
+      uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "lede.zip"
+        draft: false
