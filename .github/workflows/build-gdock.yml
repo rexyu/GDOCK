@@ -37,14 +37,13 @@ jobs:
       run: |
         cd lede && git pull
     - name: ZIP
-      uses: montudor/action-zip@v0.1.0
-      with:
-        args: zip -qq -r ./dir.zip ./lede
+      run : |
+        tar -zcvf bin.tar.gz lede
     
     - name: Upload asset to release
       uses: actions-github/upload-to-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: './dir.zip'
+        file: './bin.tar.gz'
         type: 'application/octet-stream'
