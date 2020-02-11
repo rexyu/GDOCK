@@ -47,22 +47,31 @@ jobs:
         sudo -E apt-get -y install git  unzip zlib1g-dev lib32gcc1 git-core gcc-multilib p7zip p7zip-full  libssl-dev texinfo
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
-
-    - name: Clone source code
+    - name: Cache Lede
+      id: cache-lede
+      uses: actions/cache@v1
+      with:
+        path: lede
+        key: ${{ runner.os }}-lede
+      
+    - name: clone lede
+      if: steps.cache-lede.outputs.cache-hit != 'true'
       run: |
         git clone https://github.com/coolsnowwolf/lede lede
-
-
-
+         
+    - name: pull lede
+      if: steps.cache-lede.outputs.cache-hit == 'true'
+      run: |
+        cd lede && git pull
     - name: ZIP
       uses: montudor/action-zip@v0.1.0
       with:
-        args: zip -qq -r ./lede.zip ./lede/README
+        args: zip -qq -r ./dir.zip ./lede
     
-    - name: Upload to release
-      uses: xresloader/upload-to-github-release@v1
+    - name: Upload asset to release
+      uses: actions-github/upload-to-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: "lede.zip"
-        draft: false
+        file: './dir.zip'
+        type: 'application/octet-stream'
