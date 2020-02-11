@@ -87,16 +87,3 @@ jobs:
         name: G-DOCK
         path: ./lede/bin
 
-
-    - name: Zip Bin
-      uses: montudor/action-zip@v0.1.0
-      with:
-        args: zip -qq -r ./lede/G-DOCK.zip ./lede/bin
-    
-    - name: Upload to release
-      uses: xresloader/upload-to-github-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        file: "lede/G-DOCK.zip"
-        draft: false
