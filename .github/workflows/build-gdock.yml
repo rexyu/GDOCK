@@ -38,7 +38,7 @@ jobs:
         cd lede && git pull
     - name: ZIP
       run : |
-        tar -zcvf bin.tar.gz lede
+        tar -zcvf bin.tar.gz ./lede
     
     - name: Upload asset to release
       uses: actions-github/upload-to-release@master
