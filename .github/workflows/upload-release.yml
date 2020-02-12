@@ -34,10 +34,9 @@ jobs:
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         workflow: build-gdock.yml
-        commit: ${{github.event.pull_request.head.sha}}
-        name: artifact_name
-        path: extract_here
-   
+        commit: b66b399e854af84f129d57fd27c75520292278fa
+        name: G-DOCK
+        path: ./
    
     - name: Upload to release
       uses: xresloader/upload-to-github-release@v1
