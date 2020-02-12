@@ -95,17 +95,4 @@ jobs:
       with:
         name: G-DOCK
         path: ./lede/bin
-    
-    - name: Tar bin
-      run : |
-        tar -zcvf bin.tar.gz ./lede/bin       
-        
-    - name: Upload bin to release
-      uses: xresloader/upload-to-github-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        file: "bin.tar.gz"
-        draft: true
-
         
