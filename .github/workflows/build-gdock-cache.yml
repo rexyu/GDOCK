@@ -11,7 +11,8 @@ on:
   push:
     branches: 
       - master
-
+    paths:
+      - '**/build-gdock-cache.yml'
 jobs:
   build:
     runs-on: ubuntu-18.04
