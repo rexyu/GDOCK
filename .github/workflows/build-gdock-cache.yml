@@ -3,7 +3,7 @@
 #   Author: JK
 #=================================================
 
-name: Build G-DOCK Cache
+name: Build G-DOCK
 
 on: 
   release:
