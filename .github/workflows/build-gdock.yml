@@ -82,6 +82,7 @@ jobs:
         ../diy.sh
         make defconfig
     - name: Download package
+      if: steps.cache-lede.outputs.cache-hit != 'true'
       run: |
         echo -e "$(nproc) thread build."
         cd lede && make download -j$(nproc)
