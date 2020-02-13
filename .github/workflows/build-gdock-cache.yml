@@ -49,24 +49,20 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         
-    - name: Clone lede
+        
+    - name: Cache lede
+      id: cache-lede
+      uses: actions/cache@v1
+      with:
+        path: lede2
+        key: ${{ runner.os }}-lede-build
+      
+
+    - name: pull lede
+      if: steps.cache-lede.outputs.cache-hit == 'true'
       run: |
-        git clone https://github.com/coolsnowwolf/lede lede
-        
-    - name: Cache lede build_dir
-      id: cache-lede-build_dir
-      uses: actions/cache@v1
-      with:
-        path: lede/build_dir
-        key: ${{ runner.os }}-lede-build_dir
-              
-    - name: Cache lede staging_dir
-      id: cache-lede-staging_dir
-      uses: actions/cache@v1
-      with:
-        path: lede/staging_dir
-        key: ${{ runner.os }}-lede-staging_dir
-        
+        cp -rf lede2 lede
+
     - name: Update feeds
       run: cd lede && ./scripts/feeds update -a
 
@@ -81,6 +77,7 @@ jobs:
         ../diy.sh
         make defconfig
     - name: Download package
+      if: steps.cache-lede.outputs.cache-hit != 'true'
       run: |
         echo -e "$(nproc) thread build."
         cd lede && make download -j$(nproc)
@@ -94,6 +91,6 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: G-DOCK
+        name: K2
         path: ./lede/bin
         
