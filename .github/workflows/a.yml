@@ -35,5 +35,6 @@ jobs:
       run : |
         tar -zcvf bin.tar.gz ./bin   
         
-    - run : sshpass -p "123456" scp ./bin.tar.gz open@122.51.136.164:/tmp/
+    - run : scp ./bin.tar.gz open@122.51.136.164:/tmp/
+        123456
     
