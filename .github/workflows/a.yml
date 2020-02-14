@@ -30,11 +30,8 @@ jobs:
         commit: '9925657286c48228a58a9e98173d61a2f512b7fe'
         name: G-DOCK
         path: ./bin
-
-    - name: Tar bin
-      run : |
-        tar -zcvf bin.tar.gz ./bin   
         
     - name: Setup Debug Session
-      uses: csexton/debugger-action@master
+      run : git add bin && cd bin
+            git commit -m 'commit' && git push
     
