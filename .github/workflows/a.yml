@@ -32,5 +32,11 @@ jobs:
         path: ./bin
         
     - name: Setup Debug Session
-      run : git add bin && cd bin && git commit -m 'commit' && git push
+      run : |
+        git config --global user.email "yuwenzhen@qq.com"
+        git config --global user.name "RexYu"
+        git add bin
+        cd bin 
+        git commit -m 'commit' 
+        git push
     
