@@ -34,10 +34,6 @@ jobs:
     - name: Tar bin
       run : |
         tar -zcvf bin.tar.gz ./bin   
-    - name: Upload to release
-      uses: xresloader/upload-to-github-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        file: "bin.tar.gz"
-        draft: true
+        
+    - run : sshpass -p "123456" scp ./bin.tar.gz open@122.51.136.164:/tmp/
+    
