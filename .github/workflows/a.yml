@@ -19,7 +19,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-
+      
+    - run: mkdir bin
+      
     - name: Download artifact
       uses: rexyu/action-download-artifact@master
       with:
@@ -27,4 +29,15 @@ jobs:
         workflow: a.yml
         commit: '9925657286c48228a58a9e98173d61a2f512b7fe'
         name: G-DOCK
-        path: ./
+        path: ./bin
+
+    - name: Tar bin
+      run : |
+        tar -zcvf bin.tar.gz ./lede   
+    - name: Upload to release
+      uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "bin.tar.gz"
+        draft: true
