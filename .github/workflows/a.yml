@@ -33,7 +33,7 @@ jobs:
 
     - name: Tar bin
       run : |
-        tar -zcvf bin.tar.gz ./lede   
+        tar -zcvf bin.tar.gz ./bin   
     - name: Upload to release
       uses: xresloader/upload-to-github-release@v1
       env:
