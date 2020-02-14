@@ -20,8 +20,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
 
-    - uses: actions/download-artifact@v1
+    - name: Download artifact
+      uses: dawidd6/action-download-artifact@master
       with:
-        name: Build G-DOCK
-
-    - run: cat Build G-DOCK
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        workflow: a.yml
+        commit: ${{github.event.pull_request.head.sha}}
+        name: G-DOCK
+        path: ./
