@@ -21,7 +21,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: Download artifact
-      uses: dawidd6/action-download-artifact@master
+      uses: dawidd6/action-download-artifact@v1.0.0
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         workflow: a.yml
