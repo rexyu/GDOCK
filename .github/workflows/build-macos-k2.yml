@@ -41,8 +41,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
+
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -58,6 +57,18 @@ jobs:
         source ~/.bashrc
         hdiutil create -size 50g -type SPARSE -fs "Case-sensitive HFS+" -volname OpenWrt OpenWrt.sparseimage
         hdiutil attach OpenWrt.sparseimage
-        sudo -E apt-get -qq update
-        sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler
-        curl -fsSL https://raw.githubusercontent.com/P3TERX/dotfiles/master/.bashrc >> ~/.bashrc
+        
+    - name: Checkout
+      uses: actions/checkout@master
+   
+    - name: Clone source code
+      run: |
+        cd /Volumes/OpenWrt/
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+      
+    - name: Clone download
+      run: |
+        cd /Volumes/OpenWrt/
+        git clone --depth 1 $DL_URL -b $DL_BRANCH dl
+        cd openwrt && ln -s ../dl dl 
+        
